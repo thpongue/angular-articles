@@ -44,14 +44,14 @@ Uncaught Error: Template parse errors:
     at compiler.js:25808
     at Object.then (compiler.js:2166)
     at JitCompiler._compileModuleAndComponents (compiler.js:25807)
+    
+The stack trace doesn't help. I'm totally reliant on the error message, and any contextual knowledge I have.
 
-Error messaging has improved. For common errors it works pretty well, but developers using Angular have been overly dependent on making sense of the error messages.
+Error messaging has improved. For common errors it works pretty well, but developers using Angular have been overly dependent on making sense of the error messages or just outsourcing that work to stackoverflow.
 
-I have concluded that the best way to work with Angular is to learn the framework very well. Its not suited to diving in, many errors (such as missing module imports) can be picked up quickly by someone who understands the ideas behind Angular.
+I have concluded that the best way to work with Angular is to learn the framework very well. Its not suited to diving in. Many errors can be picked up quickly by someone who understands the ideas behind Angular. For example, if you know how module imports work and you know that Angular relies heavily on module imports you have a much better chance of quickly getting to the bottom of our faked-up example.
 
-For example, if you know how module imports work and you know that Angular relies heavily on module imports you have a much better chance of quickly getting to the bottom of our faked-up example.
-
-I've always enjoyed diving into problems- breaking things and fixing things along the way. Angular has changed how I work. I have a better theoretical knowledge of the tool, but I am also a little uneasy about those baffling stack traces.
+I've always enjoyed diving into problems - breaking things and fixing things along the way. Angular has changed how I work. I have a better theoretical knowledge of the tool, but I am also a little uneasy about those baffling stack traces.
 
 Is this just how it is now?
 

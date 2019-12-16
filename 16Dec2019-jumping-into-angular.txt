@@ -4,6 +4,8 @@ Lets ignore for now the tooling required: mainly the Angular CLI, NPM and Webpac
 Lets ignore the requirement to learn TypeScript
 Lets ignore the additional tools such as karma, jasmine and protractor which are essential parts of the ecosystem
 
+The process of iteratively working out how to do things involves a different approach to technologies I have worked with before.
+
 For much of my career, I would often go through a process like:
 - jump into a new piece of code
 - make a mistake
@@ -17,15 +19,15 @@ With Angular I tried the same approach but ended up with something like:
 - make a mistake
 - look at the error message
 - look at the stack trace
-- usually not understand the error message
-- scroll through a tonne of angular classes
+- frequently not understand the error message
+- scroll down the stack trace
 - usually recognise something I wrote near the bottom, but there's too much fluff in between my bit and the error to want to step through it
 - chuck the error message into google
 - find something on stackoverflow
 
-After having a similar experience to this dozens of times, I'd often just put the error straight into google. But when your framework of choice trains you not to try to deduce problems in your code you have to consider your choices...
+After having a similar experience to this dozens of times, I'd often just put the error straight into google. After a while I realise that the framework was actually training me not to try to work things out myself.
 
-Here is a contrived example after using the cli to create a hello world app: Removing AppRoutingModule from the module imports
+Here is a contrived example after using the cli to create a hello world app: Removing AppRoutingModule from the module imports but leaving <router-outlet></router-outlet> in the template. The runtime error is:
 
 Uncaught Error: Template parse errors:
 'router-outlet' is not a known element:
@@ -45,11 +47,11 @@ Uncaught Error: Template parse errors:
     at Object.then (compiler.js:2166)
     at JitCompiler._compileModuleAndComponents (compiler.js:25807)
     
-The stack trace doesn't help. I'm totally reliant on the error message, and any contextual knowledge I have.
+The error message doesn't tell me what to do. The stack trace doesn't help. I'm totally reliant on my interpretation of the error message, and any contextual knowledge I have.
 
-Error messaging has improved. For common errors it works pretty well, but developers using Angular have been overly dependent on making sense of the error messages or just outsourcing that work to stackoverflow.
+To be fair to Angular, error messaging has improved since I started with Angular 2. For common errors it works pretty well. Before writing this article I played with faking up some errors with Pipes and they were very clear and helpful. But this isn't always the case, and I can't be the only developer feeling uneasy about outsourcing a key developer skill to stackoverflow.
 
-I have concluded that the best way to work with Angular is to learn the framework very well. Its not suited to diving in. Many errors can be picked up quickly by someone who understands the ideas behind Angular. For example, if you know how module imports work and you know that Angular relies heavily on module imports you have a much better chance of quickly getting to the bottom of our faked-up example.
+I have concluded that the best way to work with Angular is to learn the framework very well. It is improving but it's still not suited to diving in. Many errors can be picked up quickly by someone who understands the ideas behind Angular. For example, if you know how module imports work and you know that Angular relies heavily on module imports you have a much better chance of quickly getting to the bottom of our fake example above.
 
 I've always enjoyed diving into problems - breaking things and fixing things along the way. Angular has changed how I work. I have a better theoretical knowledge of the tool, but I am also a little uneasy about those baffling stack traces.
 

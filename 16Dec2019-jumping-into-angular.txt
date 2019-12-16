@@ -1,0 +1,57 @@
+Angular is hard to just jump into.
+
+Lets ignore for now the tooling required: mainly the Angular CLI, NPM and Webpack
+Lets ignore the requirement to learn TypeScript
+Lets ignore the additional tools such as karma, jasmine and protractor which are essential parts of the ecosystem
+
+My main criticism of Angular is how hard it is to jump in, For much of my career, I would often go through a process like:
+- jump into a new piece of code
+- make a mistake
+- look at the error message
+- look at a stack trace
+- deduce the underlying issue
+- fix the problem
+
+With Angular I tried the same approach:
+- jump into a new piece of code
+- make a mistake
+- look at the error message
+- look at the stack trace
+- usually not understand the error message
+- scroll through a tonne of angular classes
+- usually recognise something I wrote near the bottom, but there's too much fluff in between my bit and the error to want to step through it
+- chuck the error message into google
+- find something on stackoverflow
+
+After having a similar experience to this dozens of times, I'd often just put the error straight into google. But when your framework of choice trains you not to try to deduce problems in your code you have to consider your choices...
+
+Here is a contrived example after using the cli to create a hello world app: Removing AppRoutingModule from the module imports
+
+Uncaught Error: Template parse errors:
+'router-outlet' is not a known element:
+1. If 'router-outlet' is an Angular component, then verify that it is part of this module.
+2. If 'router-outlet' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message. ("
+
+[ERROR ->]<router-outlet></router-outlet>
+"): ng:///AppModule/AppComponent.html@537:0
+    at syntaxError (compiler.js:2175)
+    at TemplateParser.parse (compiler.js:11388)
+    at JitCompiler._parseTemplate (compiler.js:25963)
+    at JitCompiler._compileTemplate (compiler.js:25951)
+    at compiler.js:25895
+    at Set.forEach (<anonymous>)
+    at JitCompiler._compileComponents (compiler.js:25895)
+    at compiler.js:25808
+    at Object.then (compiler.js:2166)
+    at JitCompiler._compileModuleAndComponents (compiler.js:25807)
+
+Error messaging has improved. For common errors it works pretty well, but developers using Angular have been overly dependent on making sense of the error messages.
+
+I have concluded that the best way to work with Angular is to learn the framework very well. Its not suited to diving in, many errors (such as missing module imports) can be picked up quickly by someone who understands the ideas behind Angular.
+
+For example, if you know how module imports work and you know that Angular relies heavily on module imports you have a much better chance of quickly getting to the bottom of our faked-up example.
+
+I've always enjoyed diving into problems- breaking things and fixing things along the way. Angular has changed how I work. I have a better theoretical knowledge of the tool, but I am also a little uneasy about those baffling stack traces.
+
+Is this just how it is now?
+

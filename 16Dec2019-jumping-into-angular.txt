@@ -4,7 +4,7 @@ Lets ignore for now the tooling required: mainly the Angular CLI, NPM and Webpac
 Lets ignore the requirement to learn TypeScript
 Lets ignore the additional tools such as karma, jasmine and protractor which are essential parts of the ecosystem
 
-My main criticism of Angular is how hard it is to jump in, For much of my career, I would often go through a process like:
+For much of my career, I would often go through a process like:
 - jump into a new piece of code
 - make a mistake
 - look at the error message
@@ -12,7 +12,7 @@ My main criticism of Angular is how hard it is to jump in, For much of my career
 - deduce the underlying issue
 - fix the problem
 
-With Angular I tried the same approach:
+With Angular I tried the same approach but ended up with something like:
 - jump into a new piece of code
 - make a mistake
 - look at the error message

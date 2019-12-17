@@ -1,0 +1,73 @@
+Those of us who use Angular on a regular basis are making using of Modules, Components, Directives, Pipes, Dependency Injection, and Decorators. Here is a quick intro to these 6 important Angular concepts.
+
+
+Modules
+--------------------------
+Lets start with the simple bit first. A module is just a Typescript class decorated with the @NgModule decorator.
+
+The concept of modules has never fitted neatly into my mind. A nested collection of components makes sense to me, but the addition of modules requires more explanation.
+
+Further still, the existance of JavaScript modules, which work differently to Angular modules, adds further complexity.
+Whereas the JavaScript implementation just amounts to namespacing, Angular modules have lots of Angular-specific functionality, can be split into multiple files and can extend the root module.
+
+The idea is that they provide a compilation context for components. The component doesn't need to know about the module but the module knows about the component. The things defined by the module include: 
+- use the declarations array to list the components, directives and pipes so that we can reference them in the templates for any components (and reursively to any child components and modules)
+- use the imports array to list other modules to incorporate into this module. Anything added to the exports array of these imported modules are accessible by the importing module
+- use the providers array to specify the services available to child components - the same service will be passed to all components (and to any child components and merged modules [there is not module hierarchy]) unless a child further down the hierarchy adds the same class to its providers which will get a new instance
+- use the exports array to specify what to share
+- use the bootstrap array to specify 1 or many (though this is rare) root components
+
+Broadly there are 2 types of module: root and feature.
+
+1. root
+Your root module must import BrowserModule eg
+
+Your Angular app won't work without some core modules being imported into your root module. Eg the CLI adds the following to your app.module:
+imports: [
+	BrowserModule,
+	NgbModule
+]
+
+BrowserModule re-exports CommonModule which contains directives such as *ngIf and *ngFor
+
+(take a look at BrowserModule here: https://github.com/angular/angular/blob/master/packages/platform-browser/src/browser.ts)
+
+2. feature
+Feature modules can be split a number of ways depending on the logic of your app. Eg 1 module per route, 1 module for a group of related services, 1 module per widget (ie set of related components not necessarily coupled with a route)
+
+
+Components
+--------------------------
+
+A component is a Typescript class decorated with the @Component decorator.
+
+Pretty much everything in Angular relies on Components. An Angular app contains a tree of Angular components - these are essentially chunks of html with view logic held in a typescript file.
+We define a selector which can then be used in our other components (enabling infinite nesting)
+
+Dependendencies are injected into the constructor of the component, and other Angular elements such as directives, pipes and other components are added using the template (the html chunk).
+Components rely on their related module to enable the constructor injection and template element resolution (ie taking a component, directive or pipe name and finding the appropriate Angular element)
+The 1 exception is that Components can specify their own providers - hence they can control their own Services.
+
+
+Directives
+--------------------------
+
+TODO
+
+
+Pipes
+--------------------------
+
+TODO
+
+
+Dependency Injection
+--------------------------
+This is a programming technique that decouples the usage of a Class from its instantiation. In other words, the framework creates instances of your classes for you.
+Angular uses dependency injection in a lot of places, but one example is with Services. Angular manages the creation of services and ensures that instances of the class are shared in the way you define (usually as a Singleton)
+
+
+Decorators
+--------------------------
+
+

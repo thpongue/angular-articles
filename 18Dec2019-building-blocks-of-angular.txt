@@ -3,7 +3,7 @@ Those of us who use Angular on a regular basis are making using of Modules, Comp
 
 Modules
 --------------------------
-Lets start with the simple bit first. A module is just a Typescript class decorated with the @NgModule decorator.
+Lets start with the simple bit first. A module is just a Typescript class decorated with @NgModule.
 
 The concept of modules has never fitted neatly into my mind. A nested collection of components makes sense to me, but the addition of modules requires more explanation.
 
@@ -39,30 +39,46 @@ Feature modules can be split a number of ways depending on the logic of your app
 Components
 --------------------------
 
-A component is a Typescript class decorated with the @Component decorator.
+A component is a Typescript class decorated with @Component.
 
 Pretty much everything in Angular relies on Components. An Angular app contains a tree of Angular components - these are essentially chunks of html with view logic held in a typescript file.
 We define a selector which can then be used in our other components (enabling infinite nesting)
 
-Dependendencies are injected into the constructor of the component, and other Angular elements such as directives, pipes and other components are added using the template (the html chunk).
-Components rely on their related module to enable the constructor injection and template element resolution (ie taking a component, directive or pipe name and finding the appropriate Angular element)
+Dependendencies are injected into the constructor of the component, and other Angular building blocks such as directives, pipes and other components are added using the template (the html chunk).
+Components rely on their related module to enable the constructor injection and template declarable* resolution (ie taking a component, directive or pipe name and finding the appropriate Angular declarable)
 The 1 exception is that Components can specify their own providers - hence they can control their own Services.
+
+* a declarable in Angular is a component, directive or pipe
 
 
 Directives
 --------------------------
 
-TODO
+A directive is a Typescript class decorated with @Directive.
+
+Angular directives are like Angular components without templates. In fact, component extends directive. They add behaviour to an existing DOM element or an existing component instance.
+
+Angular uses lots of directives to achieve core functionality eg router-outlet, *ngIf and *ngSwitch are all directives
+
+There are 2 types of directive: Structural and Attribute.
+
+- Structural directives — change the DOM layout by adding and removing DOM elements. These change the structure of the view. Two examples are NgFor and NgIf.
+- Attribute directives — change the appearance or behavior of an element, component, directive eg NgStyle.
 
 
 Pipes
 --------------------------
 
-TODO
+A pipe is a Typescript class decorated with @Pipe.
+
+These are usually referenced in your template as a way to transform a string into another string. The syntax is {{ myProp | myPipe }}. They can also be chained like so {{ myProp | myFirstPipe | mySecondPipe }}
+
+Pipes take the value being transformed as the main parameter but can also accept additional parameters using this syntax {{ myProp | myPipe:param1IsAPropertyOfTheComponent, 'param 2 is a string literal' }}
 
 
 Dependency Injection
 --------------------------
+
 This is a programming technique that decouples the usage of a Class from its instantiation. In other words, the framework creates instances of your classes for you.
 Angular uses dependency injection in a lot of places, but one example is with Services. Angular manages the creation of services and ensures that instances of the class are shared in the way you define (usually as a Singleton)
 
@@ -70,4 +86,22 @@ Angular uses dependency injection in a lot of places, but one example is with Se
 Decorators
 --------------------------
 
+A decorator is a function which adds meta-data to an object. This object can be a class (eg NgModule), function (eg @HostListener), property (eg @Input) or parameter (eg @Inject).
 
+In Angular they are all prefixed with @ - here is the complete list:
+ - @NgModule
+ - @Component
+ - @Injectable
+ - @Directive
+ - @Pipe
+ - @Input
+ - @Output
+ - @HostBinding
+ - @HostListener
+ - @ContentChild
+ - @ContentChildren
+ - @ViewChild
+ - @ViewChildren
+ - @Inject
+
+Angular uses this meta-data to tell it how the different objects should work. Eg the @Component decorator allows us to specify the selector and the template. 

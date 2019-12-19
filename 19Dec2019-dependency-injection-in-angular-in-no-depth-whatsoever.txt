@@ -1,0 +1,34 @@
+Dependency Injection (DI) is a coding pattern in which a class asks for dependencies from external sources rather than creating them itself.
+
+In Angular DI is used for services.
+
+There are 2 sides to this:
+1. Being available for injection.
+2. Being injected into
+
+1. Being available for injection.
+
+The simple bit - just add the @Injectable() decorator to your service and you can then inject other services into it's constructor.
+
+Alternatively (but less commonly) use the @Inject decorator in the constructor. This bypasses the need for the thing being injected to have an injector.
+eg
+constructor(@Inject(myService) private MyService) { }
+
+
+2. Being injected into
+This takes a little more explanation (but mainly just pay attention to number 1 below as this is mostly what you'll see)
+
+There are 2 ways to make a service available for injection
+
+1. add {providedIn: root} to the @Injectable() decorator for your service
+This is the most common way, and is not the default method used when generating services with the angular CLI. It allows the service to self-register with your root module. You can change root to any module name to register with other modules but this is less common.
+
+2. add the service to the providers array of the module or service.
+
+Number 1 is the Service telling the module it wants to be part of it, number 2 is the module or consuming service telling the service it wants to use it.
+
+Angular takes this information to create an injector hierarchy. All services within the hierarchy share a new instance of a service unless a new provider further down the hierarchy tells the current module / service and all of its children to use a new instance. 
+
+This just about covers what you'll need to know to get how dependency injection works in Angular.
+
+As with everything Angular-related check out the docs and prepare your mind for the ModuleInjector, ElementInjector, the implications for tree-shaking and the dozens of other related topics.

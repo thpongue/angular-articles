@@ -16,11 +16,11 @@ Angular is pretty helpful in this respect. It has built in concepts which stop y
 - services
 - directives
 - components
-- pipess
+- pipes
 
 However, there is still nothing from stopping your creating does-everything.service.ts and needs-to-be-split-up.component.ts. They provide some useful rules-of-thumb here: see https://angular.io/guide/styleguide#single-responsibility
 
-More subtly, by default Angular creates a spec file whenever you generate a class with the CLI and makes unit testing very easy with a single command. Most users will naturally gravitate towards smaller, easier to test units (fewer collaborators, fewer state permutations).
+More subtly, by default Angular creates a spec file whenever you generate a class with the CLI and makes unit testing very easy (a single npm command). Most users will naturally gravitate towards smaller, easier to test units (fewer collaborators, fewer state permutations).
 
 
 Open–closed principle
@@ -31,8 +31,8 @@ Your objects should be open for extension, but closed for modification. When new
 How it applies to Angular:
 First off Angular uses typescript, which allows interfaces and parent classes. Thats a plus.
 On the negative side Angular makes it difficult in 2 ways:
-1. annotations aren't inherited - hence the user must choose between duplicating the annotation or just keeping one class and adding to it
-2. using dependency injection (DI) to inject a service into another class is pretty straightforward when the provider token is a class that is also the type of the returned, but doing the same thing with an interface or parent class requires the lengthy InjectionToken syntax
+1. annotations aren't inherited - hence the user must choose between duplicating the annotation or just keeping one class and adding to it. Many developers will opt to modify the existing class.
+2. using dependency injection (DI) to inject a service into another class is pretty straightforward when the provider token is the same class as the class returned, but doing the same thing with an interface or parent class requires the lengthy InjectionToken syntax which makes it more convenient to just keep adding to that class
 see https://angular.io/guide/dependency-injection-in-action#provider-token-alternatives-class-interface-and-injectiontoken
 
 
@@ -43,7 +43,7 @@ Objects in a program should be replaceable with instances of their subtypes with
 This ensures that inheritance is used correctly - ie if your parent Bird class has a fly() method you should not have create an Emu class which inherits from Bird (they can't fly, in case you didn't know)
 
 How it applies to Angular:
-My feeling is that this is the least relevant of the 5 S.O.L.I.D. principles to Angular. Developers are told to favour composition over inheritance, and I've described in how Angular further discourages inheritance above in the Open-Closed principle section
+My feeling is that this is the least relevant of the 5 S.O.L.I.D. principles to Angular. Since the principles first became popular things have moved on and developers tend to favour composition over inheritance. In addition, I've already described the way Angular further discourages inheritance above in the Open-Closed principle section
 
 
 Interface segregation principle

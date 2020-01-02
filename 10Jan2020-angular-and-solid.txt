@@ -1,0 +1,67 @@
+S.O.L.I.D is an acronym for five design principles intended to make software designs more understandable, flexible and maintainable.
+These principles were introduced by Bob Martin (Uncle Bob) but the acroynm came from his contemporary Michael Feathers.
+
+In this article I want to look at the relevance of S.O.L.I.D in the context of Angular.
+I'll define each of them then explain provide my opinion on how it applies to Angular. I'll focus on how you can apply these principles yourself rather than how the creators of Angular have applied them.
+
+
+Single responsibility principle
+------------------------------------------
+Definition:
+A class should only have a single responsibility ie a single reason to be changed. For example, a class responsible for managing a view should not have to change if an end point changes
+
+How it applies to Angular:
+Angular is pretty helpful in this respect. It has built in concepts which stop you from mixing up your responsibilities:
+- modules
+- services
+- directives
+- components
+- pipess
+
+However, there is still nothing from stopping your creating does-everything.service.ts and needs-to-be-split-up.component.ts. They provide some useful rules-of-thumb here: see https://angular.io/guide/styleguide#single-responsibility
+
+More subtly, by default Angular creates a spec file whenever you generate a class with the CLI and makes unit testing very easy with a single command. Most users will naturally gravitate towards smaller, easier to test units (fewer collaborators, fewer state permutations).
+
+
+Open–closed principle
+------------------------------------------
+Definition:
+Your objects should be open for extension, but closed for modification. When new requirements turn up we should add new code not change existing code. For example a new implementation of an interface.
+
+How it applies to Angular:
+First off Angular uses typescript, which allows interfaces and parent classes. Thats a plus.
+On the negative side Angular makes it difficult in 2 ways:
+1. annotations aren't inherited - hence the user must choose between duplicating the annotation or just keeping one class and adding to it
+2. using dependency injection (DI) to inject a service into another class is pretty straightforward when the provider token is a class that is also the type of the returned, but doing the same thing with an interface or parent class requires the lengthy InjectionToken syntax
+see https://angular.io/guide/dependency-injection-in-action#provider-token-alternatives-class-interface-and-injectiontoken
+
+
+Liskov substitution principle
+------------------------------------------
+Definition:
+Objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.
+This ensures that inheritance is used correctly - ie if your parent Bird class has a fly() method you should not have create an Emu class which inherits from Bird (they can't fly, in case you didn't know)
+
+How it applies to Angular:
+My feeling is that this is the least relevant of the 5 S.O.L.I.D. principles to Angular. Developers are told to favour composition over inheritance, and I've described in how Angular further discourages inheritance above in the Open-Closed principle section
+
+
+Interface segregation principle
+------------------------------------------
+Definition:
+Split interfaces into small chunks that belong together to avoid unnecessary coupling.
+If you require method1 and method2 but the interface includes unrelatedMethod3 (especially if it requires a bunch of external modules) then this breaks this principle.
+
+How it applies to Angular:
+The use of typescript means Angular developers have access to Interfaces which make this whole thing possible. There is nothing particularly special about Angular or TypeScript to encourage you to do this.
+
+However, Angular does help you to deal with the practical consequences of failing at this with Tree Shaking. This means that as part of the process of creating a prod build, any methods that you don't use are removed from the bundle.
+
+
+Dependency inversion principle
+------------------------------------------
+Definition:
+One should depend upon abstractions, not concretions. In other words if I have a dependency on a class that implements an interface, I should code to the interface not the class.
+
+How it applies to Angular:
+I can apply the criticisms I described under the Open-closed principle here too. Since annotations discourage inheritance and DI discourages coding to an interface I am less likely to do so.

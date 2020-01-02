@@ -31,7 +31,7 @@ Your objects should be open for extension, but closed for modification. When new
 How it applies to Angular:
 First off Angular uses typescript, which allows interfaces and parent classes. Thats a plus.
 On the negative side Angular makes it difficult in 2 ways:
-1. annotations aren't inherited - hence the user must choose between duplicating the annotation or just keeping one class and adding to it. Many developers will opt to modify the existing class.
+1. decorators aren't inherited - hence the user must choose between duplicating the decorator or just keeping one class and adding to it. Many developers will opt to modify the existing class.
 2. using dependency injection (DI) to inject a service into another class is pretty straightforward when the provider token is the same class as the class returned, but doing the same thing with an interface or parent class requires the lengthy InjectionToken syntax which makes it more convenient to just keep adding to that class
 see https://angular.io/guide/dependency-injection-in-action#provider-token-alternatives-class-interface-and-injectiontoken
 
@@ -64,4 +64,4 @@ Definition:
 One should depend upon abstractions, not concretions. In other words if I have a dependency on a class that implements an interface, I should code to the interface not the class.
 
 How it applies to Angular:
-I can apply the criticisms I described under the Open-closed principle here too. Since annotations discourage inheritance and DI discourages coding to an interface I am less likely to do so.
+I can apply the criticisms I described under the Open-closed principle here too. Since decorators discourage inheritance and DI discourages coding to an interface I am less likely to do so.

@@ -1,13 +1,13 @@
-Tree shaking is a step in a build process that removes unused code from a code base.
+Tree shaking is a step in a build process that removes unused code from a code base. The name is a quirky metaphor to describe a process similar to shaking out the dead leaves in a tree.
 
-It is a term commonly heard in the Angular community but tree shaking isn't unique to Angular. It is an important part of the Angular compilation process though.
-
-Angular is a large codebase with a great deal of functionaluty. No Angular app is realistically going to need everything Angular offers so it is useful to prune away anything that isn't needed.
+Tree shaking isn't unique to Angular. It is an important part of the compilation process though because Angular is a large codebase with a great deal of functionality. No Angular app is realistically going to need everything Angular offers so it is useful to remove anything that isn't needed.
 
 When looking into tree-shaking it is tempting to create a sample CLI application and run it locally in order to investigate. This won't tell you much as tree shaking is only part of the prod build process.
+You may also be tempted to run a 
 
 Instead your best bet is to do a production build but for readibility generate the code without minifying it:
 ng build --prod --optimization=false
+
 
 Dynamic vs static imports
 --------------------------------------------------------------

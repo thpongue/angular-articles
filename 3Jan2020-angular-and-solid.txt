@@ -30,8 +30,9 @@ Your objects should be open for extension, but closed for modification. When new
 
 How it applies to Angular:
 First off Angular uses typescript, which allows interfaces and parent classes. Thats a plus.
-On the negative side Angular makes it difficult in 2 ways:
-1. decorators aren't inherited - hence the user must choose between duplicating the decorator or just keeping one class and adding to it. Many developers will opt to modify the existing class.
+On the negative side Angular adds a couple of speedbumps:
+1. decorators aren't all inherited (eg the @Component decorator) - hence the user must choose between duplicating the decorator or just keeping one class and adding to it. Many developers will opt to modify the existing class.
+In addition angular doesn't have the handy feature of blending decorator properties - eg if the template decorator property of the child is missing then use the one from the parent
 2. using dependency injection (DI) to inject a service into another class is pretty straightforward when the provider token is the same class as the class returned, but doing the same thing with an interface or parent class requires the lengthy InjectionToken syntax which makes it more convenient to just keep adding to that class
 see https://angular.io/guide/dependency-injection-in-action#provider-token-alternatives-class-interface-and-injectiontoken
 

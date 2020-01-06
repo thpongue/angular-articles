@@ -1,0 +1,5 @@
+Decorators aren't inherited
+eg @Input() decorators aren't inherited, @Component({...}) isn't inherited.
+
+Most of Angular makes a key element of OO much harder
+

@@ -1,0 +1,4 @@
+TODO
+
+observables do more than promises but are harder to understand. For me this is good, I like the idea I can do more with less code. But if I had little upfront time to invest I might think differently.
+Angular 1 AngularJS 0

@@ -1,0 +1,10 @@
+Case for:
+- Opinionated
+- Best Practise in each area
+- Testing
+
+Case against:
+	- Eco-systm may need updating:
+		- protractor is losing out to Cypress
+
+TODO

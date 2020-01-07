@@ -1,0 +1,28 @@
+Here is a quick list of reasons why I still love Angular in 2020
+
+It's opinionated
+- Multiple Angular projects across tend to look sort of the same. You will recognise modules, components, directives, services and pipes
+- Customisation often wastes time and the Angular CLI gets us around lots of those issues by setting up your environment in a standard way using mature tools
+
+Typescript
+- Angular has always been in typescript. All online examples are in typescript. The Angular source code is in TypeScript. Its an improvement over JavaScript and it's everywhere you look
+
+Dependency Injection
+- Angular has a clever hierarchical dependency injection system implemented across the framework
+
+RxJS
+- Better than promises and built into Angular. Eg HttpClient is written using RxJS, the EventEmitter class used to output values from components uses RxJS. Its a good choice used everywhere
+
+Testability
+- Personal bias here - but I'm familiar with Jasmine and Protractor. Hence productive straight away. Other testing tools such as Jest and Enzyme might also be great
+
+Documentation
+- The documentation for each version of generally very good (though it could often get to the point more quickly)
+
+Mature
+- Not buggy, most obscure problems have an answer on stackoverflow or similar
+
+The clout of Google
+- AngularJS was killed off publically, and Angular was touted as it's replacement before tree shaking, the CLI, and thousands of other small improvements existed
+- Many developers lost faith in Angular but the backing of Google helped hugely to get it through this trough. Surviving despite huge flaws gives me faith that Angular will thrive now that it's really very good
+

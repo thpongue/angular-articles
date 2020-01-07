@@ -1,7 +1,7 @@
 Here is a quick list of reasons why I still love Angular in 2020
 
 It's opinionated
-- Multiple Angular projects across tend to look sort of the same. You will recognise modules, components, directives, services and pipes
+- Multiple Angular projects tend to look sort of the same. You will recognise modules, components, directives, services and pipes. You will be familiar with dependency injection, and the way angular is tested. Lots of time saved.
 - Customisation often wastes time and the Angular CLI gets us around lots of those issues by setting up your environment in a standard way using mature tools
 
 Typescript

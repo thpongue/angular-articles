@@ -1,0 +1,90 @@
+As if to prove I'm always 5 years behind everyone else this is my attempt to compare React to Angular. 
+
+I'll write this through the lens of an initial poke around a scaffolded React project from my perspective as an Angular fan.
+
+Getting started.
+I want a CLI. Angular saves me a tonne of time with this so this is my preferred way to get going with React. The nearest React equivalent is create-react-app - clunky name but lets try this out:
+npx create-react-app hello-world
+<get coffee / relax a while / think about how awesome Angular is>
+cd hello-world
+
+Before I actually run the thing lets take a peek around and look at some of the interesting features:
+- in src/
+	- no html page - but has index.js
+	- the index.js imports its css - very different to what I'm used to in Angular
+	- the imports aren't used. In Angular these would then be tree shaken away but clearly imports work differently in these parts
+	- not in TypeScript by default - it's js with imports. More accessible for most front-end developers, but I love TypeScript and miss it already.
+	- webstorm JSLint errors everywhere - turned it off just while I poke around
+	- a .test.js file is automatically created for our app component
+		- this imports from '@testing-library/react' - this is interesting and challenging. A little bit of reading indicates a desire to avoid testing implementation details - something I'm guilty of
+			- make a note to look into whether React has some superior insights into testing vs Angular with its older style Jasmine testing
+		- it's not clear from looking at this file that React uses Jest for testing, but luckily I already knew that
+	- setupTests.js makes it clear that Jest is being used
+	- a serviceWorker is created then unregistered - what's going on here?
+- on the root
+	- not a lot there - .gitignore, package.json, README.md, yarn.lock
+		- less other stuff than an angular project which has tsconfig.ts, karma.conf, angular.json, browserslist, tslint.json, and .editorconfig
+	- in the package.json there are 4 commands: start, build, test and eject. These call react-scripts which is an npm dependency
+			- the Angular equivalent calls the cli
+	- the package.json is otherwise much shorter than the equivalent Angular hello-world app - which fewer dependencies
+
+- running a few npm commands
+	- npm test and npm start work as expected
+	- npm build comes as with an suprise. The package includes a number of progressive web app features:
+		- service-worker.js (as spotted earlier)
+		- a manifest.json
+		- icons in the 2 minimum sizes required (192px and 512px - see https://developers.google.com/web/tools/lighthouse/audits/install-prompt#recommendations)
+	- npm run eject - this was at first baffling, then seemingly very drastic. From what I can tell its an easy way to nuke all of your tooling and roll your own
+		- there are clear warnings (of course I tried it!) but it strikes me as being unnecessary complication to include that in the package.json
+
+- a special comment about PWA's
+	- a quick look at https://create-react-app.dev/docs/making-a-progressive-web-app/ shows that turning this into a PWA is easy - just change serviceWorker.unregister() to serviceWorker.register() in index.js
+		- they've tried very hard to minimise everything I wonder if these could have the PWA version of the app  as a seperate type of create-react-app build - it adds overhead when picking up react basics
+
+- making a new component
+	- a component is just a javascript object 
+		- wierd seeing a component that doesn't use snake-case (I'm used to that in Angular)
+	- creating a child component of the app component took  a few minutes. I messed up by using camelCase which it didn't like but there was a meaningful error telling me to use PascalCase
+
+- routing
+	- this time I removed my new component from the app component and set myself the challange of only seeing this component if I navigate to localhost:3000/yada
+	- I started by going straight to the create-react-app site and doing a search - great! There is a recommended one here https://create-react-app.dev/docs/adding-a-router/
+	- I run the commands as described on the site:
+		- npm install --save react-router-dom
+		- <wait ages / continue to miss familiar old Angular / question the capacity of my 43 year old brain>
+	- the article points to an example which I pull a tiny piece out of:
+			<Router>
+        <Switch>
+          <Route exact path="/yada">
+            <SubComponent />
+          </Route>
+        </Switch>
+      </Router>
+	- I don't initially put a link into the site (in Angular this would be a routerLink) instead navigating directly with the url
+		- with a full page reload my component appears - impressively easy! Shouldn't this be harder!
+	- quickly fixed with the following Link compoennt(taken and changed slightly from the example)
+      <Router>
+        <Link to="/yada">yada</Link>
+        <Switch>
+          <Route exact path="/yada">
+            <SubComponent />
+          </Route>
+        </Switch>
+      </Router>
+	- I experimented with moving Link outside of the router and as I expected it complained with a clear meaningful error message. Thanks React!
+
+- analysis
+	- I've tried to explore the process of getting started in React in the most naive way possible (avoiding articles describing other peoples equivalent experiences for example)
+	- I've also tried to honestly show how I tend to play with technology: mainly just jumping in, looking for the "official" way where possible, copying and pasting examples then making a small change (eg a switch statement with one option!)
+	- There's so much missing here but its a start - my next focus will be:
+		- state management
+		- testing - unit and whatever flavour of integration / e2e testing is most popular in the React community
+			- I'm particularly interested in ways to make unit tests less implementation-detaily - I always feel as if I want to do this and never fully succeed
+		- sub-routes
+	- I can see how people find it easy to get up and running - maybe its the Angular developer in me but I almost want it to be harder. Tell me what to do React!!!
+	- I would like an easier way to scaffold new components with tests. The Angular cli is great for this
+	- It didn't take too much research to find out that npx create-react-app my-app --template typescript gives me a typescript version
+		- I'd still rather work in a technology that was typescript first - I just prefer it. I prefer articles and examples which use typescript. Still, this is a good step.
+	- adding routing was easy. I like the fact that you can use the "official" router via create-react-app - though I'd expect to see a variety of router variations out in the wild
+		- there's clearly nuance here - how, for example, does this router handle subroutes?
+	- did I enjoy my early experiences in React? Yes. I went from idea to code in no time. create-react-app eases my fears of a wild west of solutions all nearly the same but different enough to cause unecessary cognitive load

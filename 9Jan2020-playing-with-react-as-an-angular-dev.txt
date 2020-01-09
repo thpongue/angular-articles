@@ -26,7 +26,7 @@ Before I actually run the thing lets take a peek around and look at some of the 
 		- less other stuff than an angular project which has tsconfig.ts, karma.conf, angular.json, browserslist, tslint.json, and .editorconfig
 	- in the package.json there are 4 commands: start, build, test and eject. These call react-scripts which is an npm dependency
 			- the Angular equivalent calls the cli
-	- the package.json is otherwise much shorter than the equivalent Angular hello-world app - which fewer dependencies
+	- the package.json is otherwise much shorter than the equivalent Angular hello-world app - with fewer dependencies
 
 - running a few npm commands
 	- npm test and npm start work as expected
@@ -44,7 +44,7 @@ Before I actually run the thing lets take a peek around and look at some of the 
 - making a new component
 	- a component is just a javascript object 
 		- wierd seeing a component that doesn't use snake-case (I'm used to that in Angular)
-	- creating a child component of the app component took  a few minutes. I messed up by using camelCase which it didn't like but there was a meaningful error telling me to use PascalCase
+	- creating a child component of the app component took a few minutes. I messed up by using camelCase which it didn't like but there was a meaningful error telling me to use PascalCase
 
 - routing
 	- this time I removed my new component from the app component and set myself the challange of only seeing this component if I navigate to localhost:3000/yada
@@ -61,9 +61,9 @@ Before I actually run the thing lets take a peek around and look at some of the 
         </Switch>
       </Router>
 	- I don't initially put a link into the site (in Angular this would be a routerLink) instead navigating directly with the url
-		- with a full page reload my component appears - impressively easy! Shouldn't this be harder!
-	- quickly fixed with the following Link compoennt(taken and changed slightly from the example)
-      <Router>
+		- with a full page reload my component appears - impressively easy!
+	- quickly fixed with the following Link component (taken and changed slightly from the example)
+			<Router>
         <Link to="/yada">yada</Link>
         <Switch>
           <Route exact path="/yada">
@@ -81,10 +81,11 @@ Before I actually run the thing lets take a peek around and look at some of the 
 		- testing - unit and whatever flavour of integration / e2e testing is most popular in the React community
 			- I'm particularly interested in ways to make unit tests less implementation-detaily - I always feel as if I want to do this and never fully succeed
 		- sub-routes
-	- I can see how people find it easy to get up and running - maybe its the Angular developer in me but I almost want it to be harder. Tell me what to do React!!!
+	- I can see how people find it easy to get up and running - maybe its the Angular developer in me but I almost want it to be harder. Tell me what to do React!
 	- I would like an easier way to scaffold new components with tests. The Angular cli is great for this
 	- It didn't take too much research to find out that npx create-react-app my-app --template typescript gives me a typescript version
 		- I'd still rather work in a technology that was typescript first - I just prefer it. I prefer articles and examples which use typescript. Still, this is a good step.
 	- adding routing was easy. I like the fact that you can use the "official" router via create-react-app - though I'd expect to see a variety of router variations out in the wild
 		- there's clearly nuance here - how, for example, does this router handle subroutes?
 	- did I enjoy my early experiences in React? Yes. I went from idea to code in no time. create-react-app eases my fears of a wild west of solutions all nearly the same but different enough to cause unecessary cognitive load
+	- the thing that most interests me is the bigger picture - is there a better testing philosphy? is it more productive to start with less and add when needed (React) or start with everything you might need and tree shake away the bits you don't use (Angular)

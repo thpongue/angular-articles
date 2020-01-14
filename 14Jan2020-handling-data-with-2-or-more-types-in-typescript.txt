@@ -34,6 +34,9 @@ function useMethodOverloading(val: any): any {
 	return val;
 }
 
+let num: number = 5;
+let str: string = "str";
+
 // compiles fine
 console.warn(useMethodOverloading(num) * 10);
 console.warn(useMethodOverloading(str));
@@ -47,6 +50,9 @@ console.warn(useMethodOverloading(str) * 10);
 function useUnionType(val: number | string): number | string {
 	return val;
 }
+
+let num: number = 5;
+let str: string = "str";
 
 // compiles fine
 console.warn(useUnionType(str));

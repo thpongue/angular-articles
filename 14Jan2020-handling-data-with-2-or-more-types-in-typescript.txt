@@ -1,0 +1,47 @@
+This is a brief article showing 3 ways that TypeScript allows us to deal with values which could be of 2 or more types.
+The idea is to show how in a super simple form how each technique can be useful in giving us compiler errors instead of runtime errors.
+I've intentionally left off the option of just using any as this doesn't help the TypeScript compiler.
+
+1. generics
+2. method overloading
+3. union types 
+
+1. generics
+---------------------------------------
+function useGenerics<T>(val: T): T {
+	return val;
+}
+
+let num: number = 5;
+let str: string = "str";
+
+console.warn(useGenerics<number>(num) * 10);				// compiler likes this
+console.warn(useGenerics(num) * 10);								// compiler likes this
+console.warn(useGenerics<string>(str)); 						// compiler likes this
+console.warn(useGenerics(str)); 										// compiler likes this
+console.warn(useGenerics<string>(str) * 10);				// compiler doesn't like this - TypeScript recognises that we can't multiply a string
+console.warn(useGenerics(str) * 10);								// compiler doesn't like this - TypeScript recognises that we can't multiply a string
+
+
+2. method overloading
+---------------------------------------
+function useMethodOverloading(val: string): string;
+function useMethodOverloading(val: number): number;
+function useMethodOverloading(val: any): any {
+	return val;
+}
+
+console.warn(useMethodOverloading(num) * 10); 			// compiler likes this
+console.warn(useMethodOverloading(str)); 						// compiler likes this
+console.warn(useMethodOverloading(str) * 10); 			// compiler doesn't like this - TypeScript recognises that we can't multiply a string
+
+
+3. union types
+---------------------------------------
+function useUnionType(val: number | string): number | string {
+	return val;
+}
+
+console.warn(useUnionType(num) * 10); 							// compiler doesn't like this - it doesn't know if we're returning a string or a number
+console.warn(useUnionType(str)); 										// compiler likes this
+console.warn(useUnionType(str) * 10); 							// compiler doesn't like this

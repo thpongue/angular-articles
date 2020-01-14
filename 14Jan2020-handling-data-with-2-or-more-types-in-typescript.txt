@@ -15,12 +15,15 @@ function useGenerics<T>(val: T): T {
 let num: number = 5;
 let str: string = "str";
 
-console.warn(useGenerics<number>(num) * 10);				// compiler likes this
-console.warn(useGenerics(num) * 10);								// compiler likes this
-console.warn(useGenerics<string>(str)); 						// compiler likes this
-console.warn(useGenerics(str)); 										// compiler likes this
-console.warn(useGenerics<string>(str) * 10);				// compiler doesn't like this - TypeScript recognises that we can't multiply a string
-console.warn(useGenerics(str) * 10);								// compiler doesn't like this - TypeScript recognises that we can't multiply a string
+// compiles fine
+console.warn(useGenerics<number>(num) * 10);
+console.warn(useGenerics(num) * 10);
+console.warn(useGenerics<string>(str));
+console.warn(useGenerics(str));
+
+// compiler doesn't like these - TypeScript recognises that we can't multiply a string
+console.warn(useGenerics<string>(str) * 10);
+console.warn(useGenerics(str) * 10);								
 
 
 2. method overloading
@@ -31,9 +34,12 @@ function useMethodOverloading(val: any): any {
 	return val;
 }
 
-console.warn(useMethodOverloading(num) * 10); 			// compiler likes this
-console.warn(useMethodOverloading(str)); 						// compiler likes this
-console.warn(useMethodOverloading(str) * 10); 			// compiler doesn't like this - TypeScript recognises that we can't multiply a string
+// compiles fine
+console.warn(useMethodOverloading(num) * 10);
+console.warn(useMethodOverloading(str));
+
+// compiler doesn't like this - TypeScript recognises that we can't multiply a string
+console.warn(useMethodOverloading(str) * 10);
 
 
 3. union types
@@ -42,6 +48,9 @@ function useUnionType(val: number | string): number | string {
 	return val;
 }
 
-console.warn(useUnionType(num) * 10); 							// compiler doesn't like this - it doesn't know if we're returning a string or a number
-console.warn(useUnionType(str)); 										// compiler likes this
-console.warn(useUnionType(str) * 10); 							// compiler doesn't like this
+// compiles fine
+console.warn(useUnionType(str));
+
+// compiler doesn't like these - TypeScript doesn't know if we're returning a string or a number
+console.warn(useUnionType(num) * 10);
+console.warn(useUnionType(str) * 10);

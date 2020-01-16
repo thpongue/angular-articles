@@ -1,0 +1,15 @@
+optional parameters
+destructuring
+template strings
+tuples
+function overloading
+union types
+generics
+partial
+type guards
+enums
+aliases
+ambient declarations - eg for setInterval? Look this up
+optional chaining
+nullish coallescing (use ?? instead of ||)
+

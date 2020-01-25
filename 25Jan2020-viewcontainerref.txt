@@ -1,0 +1,13 @@
+This enables us to dynamically add views into a structural directive or component. At first I found the concept a little confusing since I thought it must be a reference to either:
+- the next Angular directive (components included) up the DOM
+- whatever the parent DOM node was, irrespective of whether it was an Angular element
+
+It is neither of these things. Instead, the ViewContainerRef isn't a reference to a DOM node. It is not a DOM object at all - just an angular object with a bunch of properties including (importantly) an element reference.
+
+This element reference was the thing I was looking for when looking at my generated DOM wondering what my ViewContainerRef actually was.
+
+It is a DOM node which Angular uses as a marker in the DOM. When we add to the ViewContainerRef we create a sibling of this marker.
+
+In the case of my directive which I was adding to Angular which looks in the DOM like this <!----> and when I look at the object it is of type: Comment
+
+ViewContainerRef instances can create components using createComponent or templates using createEmbeddedView

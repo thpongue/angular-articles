@@ -1,0 +1,1 @@
+eg * syntax for structural directives

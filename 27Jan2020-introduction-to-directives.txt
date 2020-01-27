@@ -1,0 +1,106 @@
+There are 3 types of directive:
+1. components eg <app-my-component></app-my-component>
+2. structural directives eg <div *appMyStructuralDirective></div>
+3. attribute directive eg <div appMyAttributeDirective></div>
+
+All directives have the following characteristics:
+
+- [input], (output) and [(two-way bindings)] which are defined in the dom node that the directive resides in
+- #references
+- when defining the selector
+	- use selector: [myDirective] to define an attribute directive eg <div myDirective>
+	- use selector: myDirective to define an element eg <myDirective>
+		- note that the default tslint in the CLI moans about this and you have to change your tslint to enable it
+		- by convention components are elements and directives are attributes
+- by convention, you can create a setter which shares the same name as the directive in order to pass a parameter - eg if your directive is myDirective then add set myDirective(val: string) { ... }
+	- this enables you to pass a value in the template using myDirective="myValue"
+	- this must be decorated as an @Input
+	- this works because all inputs are shared by any directives sitting on that element
+	- in order to add extra params just create another @Input() and set it on the element as a seperate property using the normal square braces synaxt eg [myDirectiveProperty]="some other value"
+		- note that this property will also get sent through to any other directives on that element if they contain that @Input() binding
+
+There are already a lot of built-in directives: *ngIf, *ngFor etc
+
+
+1. components
+These are the most commonly used type of directive. They're made up of: html selector + view logic (in the component file) + an html template + css
+
+I won't linger on components as these are only really listed for completeness and I'm not interested in directives for the moment.
+
+As a brief summary they pretty much have all the powers of both types of directive. Use directives when you don't need the full might of a component :-)
+
+
+2. structural directives (reminder: with the *)
+Structural directives can't honestly do much. Angular enforces either structural directives OR attribute directives. You can't make a directive that does both eg add the template and turn its background red.
+Of the 2 you're probably going to get more use out of attribute directives
+
+Consequently, this can only do:
+- adding an instance of the template you added the directive to (without modification)
+- adding a component
+- clearing one of the templates/components we've added
+
+The ability to clear or add an instance of the template has one main use case covered by the following existing structural directives:
+- *ngIf
+- *ngSwitch
+
+In comparison, an attribute directive has the ability to use Renderer2, HostBinding and HostListener which means it can do whatever it wants to the DOM. Structural directives are rather disapointing
+
+The * syntax is syntactic sugar. What angular really creates is a <ng-template></ng-template> reference, In your component, in order to actually then do anything with the DOM you inject 2 important things:
+- a reference to the ng-template (TemplateRef) - this is the (altered, desugared) version of the node the directive is added to
+- a reference to the view container (ViewContainerRef) - this is the angular object with an element reference telling angular where we can add components/templates as a sibling (yes sibling, not child)
+
+In this simple example, this structural directive takes any div and adds another one of them. This directive requires the * before it so that angular can generate the ng-template which then enables the constructor injection to work:
+
+constructor(private container: ViewContainerRef, private template: TemplateRef<any>) {}
+
+ngOnInit(): void {
+	this.container.createEmbeddedView(this.template);
+	this.container.createEmbeddedView(this.template);
+}
+
+The use of structural directives is restricted to 1 per host element. Usually you can work around this restriction using an ng-container grouping element which is an angular construct which never gets rendered (but the directives in it are used)
+(Think of ng-container in a similar way to {{ string interpolation }} curly braces in that they are an Angular template construct)
+
+One thing that I don't think the docs make very clear is that structural directives can't do what attribute directives do. They are able to blindly take the template and add it but there is no mechanism to change it.
+If you try to also inject elementRef: ElementRef into the constructor is comes back as a comment element (not the host element you added the directive to).
+
+No doubt there is a reason for these things to exist but they're pretty crap if you ask me.
+
+
+3. attribute directives (reminder: without the *)
+These are directives which let you make changes to existing components without the component knowing. Thanks to Renderer2, @HostBinding and @HostListener you can do nearly anything. Note that components can do this too.
+
+This can be broken down into the following:
+- Renderer2 - this is basically anything to modify the contents of the element via code
+	ie data, destroyNode, destroy, createElement, createComment, createText, appendChild, insertBefore, removeChild, selectRootElement, parentNode, nextSibling, setAttribute, removeAttribute, addClass, removeClass, setStyle, removeStyle, setProperty, setValue, listen
+	these are all the things you need to have in order to add to the directive element
+- @HostBinding - set a property on the DOM
+	eg @HostBinding('attr.someAttribute') get valid() { return true; } - sets a someAttribute attribute to true on the div
+	eg @HostBinding('class.someClass') get valid() { return 'myClass'; }
+- @HostListener - listen to a DOM event
+	eg @HostListener('click') handleClick() { console.warn('clicked'); }
+
+
+Summary
+
+
+Attribute directives allow you to use code to make changes to existing components, but in many cases it is easier to have a component with a template and css.
+
+Why use an unusual javascript based styling syntax when you can just use css.
+
+I find structural directives to be a misnomer. Structurally you can just show and hide the existing template but do nothing to it.
+
+Although you can inject Renderer2 (which has all the functions required to make and style html elements) you get runtime errors
+const text = this.renderer.createText('Hello world!');
+this.renderer.appendChild(this.elementRef.nativeElement, text);
+
+Failed to execute 'appendChild' on 'Node': This node type does not support this method
+
+There may be an argument for the attribute directives being a useful way of applying something akin to the decorator pattern. That is, the thing being changed can be altered with knowing about it.
+This is straight out of S.O.L.I.D. (the Open-Closed principle) and does provide a way to avoid lots of conditional logic (eg altering the colour of something based on user access rights).
+
+However, I dislike styling components outside of css
+
+Components, of course, rock! They give you everything you need. No doubt there are cases where custom directives are needed, but:
+- those cases are rare
+- in almost all cases you can do the same thing with a component

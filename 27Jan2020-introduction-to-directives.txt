@@ -40,6 +40,7 @@ As a brief summary they pretty much have all the powers of both types of directi
 Structural directives can't honestly do much:
 - adding an instance of the template you added the directive to (without modification)
 - adding a component
+	- note that since the template is not in the template that it needs to be added into the entryComponents array in the module
 - clearing one of the templates/components we've added
 
 So, most of what you need is already covered by:

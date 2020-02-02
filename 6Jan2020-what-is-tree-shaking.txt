@@ -1,13 +1,9 @@
 Tree shaking is a step in a build process that removes unused code from a code base. The name is a quirky metaphor to describe a process similar to shaking out the dead leaves in a tree.
 
-Tree shaking isn't unique to Angular. It is an important part of the compilation process though because Angular is a large codebase with a great deal of functionality. No Angular app is realistically going to need everything Angular offers so it is useful to remove anything that isn't needed.
+Tree shaking isn't unique to Angular. It is an important part of the compilation process though because Angular is a large codebase with a great deal of functionality.
+No Angular app is realistically going to need everything Angular offers so it is useful to remove anything that isn't needed.
 
-When looking into tree-shaking it is tempting to create a sample CLI application and run it locally in order to investigate. This won't tell you much as tree shaking is only part of the prod build process.
-You may also be tempted to run a 
-
-Instead your best bet is to do a production build but for readibility generate the code without minifying it:
-ng build --prod --optimization=false
-
+If you're a typical Angular CLI user then tree-shaking happens automatically on all prod builds.
 
 Dynamic vs static imports
 --------------------------------------------------------------
@@ -19,6 +15,8 @@ if (blah) {
 	import thing B
 }
 
+At compile time it's impossible to know which branch will be taken, hence both imports have to be pulled in.
+
 The typescript convention of having static imports outside of any code logic means that typescript has one important prerequisite for tree shaking.
 
 
@@ -28,3 +26,9 @@ Unused imports and unused functions removed
 The first one seems like common sense - even my IDE knows which imports aren't used. These are stripped out.
 
 The second part is a bit more clever. These means that if I import a class with 2 methods and I use 1 of them then the other 1 gets stripped out.
+
+
+Webpack and uglify
+--------------------------------------------------------------
+
+Angular has nothing to do with tree shaking. Webpack uses uglify which has an "unused" option. Setting this to true instructs uglify to remove unused code.

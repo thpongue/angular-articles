@@ -1,26 +1,28 @@
-When working on an Angular project you may want to split your codebase up into seperate library projects for some of the following reasons:
-- You need to reuse components across multiple projects
-- Different elements are conceptually different and it helps to work on them seperately
-- Some components are rarely changed so you want to remove them from the compilation and testing process that you run regularly
+All the angular decorators - I've given a brief description of each too
 
-The options are:
-private / public npm repository
-- For rarely changed libraries a private or public npm library works fine. This is the main use case for npm. However, iterative development on these projects becomes tricky.
+module decorator:
+@NgModule								- define a collection of components, directives, pipes and injectables (see the class decorators below) plus import other require modules
 
-point npm to a local dependency - ie a local file reference within the dependencies
-- This is relatively easy to do and npm accepts relative paths so you can share this between colleagues. It does, however, make the projcet setup a little more complex.
-- In effect, you are requiring a sibling project in order for this project to succeed.
-- For local dependencies which change a lot this will require that you're constantly updating the dependencies version number in the package.json on both sides which feels a bit fiddly.
-- Without this your changes won't be picked up.
+class decorators:
+@Component							- combines class logic (with lifecycle hooks), an html template, css and a selector so the component can be referenced by other components
+												- by convention these are elements
+@Directive							- these can be either structural (change the DOM) or attribute (change the appearance or behavior of an element, component, or another directive).
+												- Has no css or template
+												- by convention these are attributes
+@Pipe										- specify an operator that can be used in your template which changes the value of an object
+@Injectable							- marks a service as injectable (but without the providedIn parameter it doesn't know which provider) and enables the service to be injected into
 
-npm link
-- This gets around the problem above of having to update version numbers. However, the relationship between the 2 projects is now not even in the package.json.
-- link relies on creating a global package accessible by the recipient project.
-- There are some clever things you can do with the preinstall hook in your npm scripts but we still have the same problem as we have with local file references where there is a sibling dependency.
-
-monorepo
-- Just chuck everything into one project. Accept that its all coupled. Use lots of npm scripting to be able to test each thing seperately and enjoy the convenience of quickly updating dependencies.
-
-Summary
-- None of these is perfect catch-all. For local dependencies of personal projects I tend to use npm link in order to avoid the admin of updating version numbers all the time.
-- Monorepo's seem fashionable, and no doubt remove complexity but I would rather avoid.
+class field decorators:
+@Input									- tells angular to bind to an input property in the template using [squareBracketsSyntax]=myValue
+@Output									- tells angular to bind to an output property in the template using (bracketsSyntax)=myMethod() - note that the convention is to use an EventEmitter for this
+@HostBinding						- bind to any class, property or attribute of the host element eg @HostBinding(‘class.active’)
+@HostListener						- bind to any element event all call the specified function eg @HostListener('mouseover') onHover() { window.alert("hover"); }
+@ContentChild						- single form of ContentChildren used to get anything passed using content projection
+												- uses either a hash reference or type to return a child reference.
+												- in the params object set static to false and use the object in the ngAfterContentInit lifecycle hook
+												- returns a typed component/directive or ElementRef
+@ContentChildren				- plural for of ContentChild
+												- as above but returns QueryList (which includes an observable to listen for changes)	
+												- no option to set as static
+@ViewChild							-	same as @ContentChild but for all items in the template
+@ViewChildren						-	same as @ContentChildren for for all items in the template

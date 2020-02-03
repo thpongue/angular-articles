@@ -1,28 +1,59 @@
 All the angular decorators - I've given a brief description of each too
 
-module decorator:
-@NgModule								- define a collection of components, directives, pipes and injectables (see the class decorators below) plus import other require modules
+module decorator
+-------------------------------------------------------
 
-class decorators:
-@Component							- combines class logic (with lifecycle hooks), an html template, css and a selector so the component can be referenced by other components
-												- by convention these are elements
-@Directive							- these can be either structural (change the DOM) or attribute (change the appearance or behavior of an element, component, or another directive).
-												- Has no css or template
-												- by convention these are attributes
-@Pipe										- specify an operator that can be used in your template which changes the value of an object
-@Injectable							- marks a service as injectable (but without the providedIn parameter it doesn't know which provider) and enables the service to be injected into
+@NgModule
+- define a collection of components, directives, pipes and injectables (see the class decorators below) plus import other require modules
 
-class field decorators:
-@Input									- tells angular to bind to an input property in the template using [squareBracketsSyntax]=myValue
-@Output									- tells angular to bind to an output property in the template using (bracketsSyntax)=myMethod() - note that the convention is to use an EventEmitter for this
-@HostBinding						- bind to any class, property or attribute of the host element eg @HostBinding(‘class.active’)
-@HostListener						- bind to any element event all call the specified function eg @HostListener('mouseover') onHover() { window.alert("hover"); }
-@ContentChild						- single form of ContentChildren used to get anything passed using content projection
-												- uses either a hash reference or type to return a child reference.
-												- in the params object set static to false and use the object in the ngAfterContentInit lifecycle hook
-												- returns a typed component/directive or ElementRef
-@ContentChildren				- plural for of ContentChild
-												- as above but returns QueryList (which includes an observable to listen for changes)	
-												- no option to set as static
-@ViewChild							-	same as @ContentChild but for all items in the template
-@ViewChildren						-	same as @ContentChildren for for all items in the template
+
+class decorators
+-------------------------------------------------------
+
+@Component
+- combines class logic (with lifecycle hooks), an html template, css and a selector so the component can be referenced by other components
+- by convention these are elements
+
+@Directive
+- these can be either structural (change the DOM) or attribute (change the appearance or behavior of an element, component, or another directive).
+- Has no css or template
+- by convention these are attributes
+
+@Pipe
+- specify an operator that can be used in your template which changes the value of an object
+
+@Injectable
+- marks a service as injectable (but without the providedIn parameter it doesn't know which provider) and enables the service to be injected into
+
+
+class field decorators
+-------------------------------------------------------
+@Input
+- tells angular to bind to an input property in the template using [squareBracketsSyntax]=myValue
+
+@Output
+- tells angular to bind to an output property in the template using (bracketsSyntax)=myMethod()
+- note that the convention is to use an EventEmitter for this
+
+@HostBinding
+- bind to any class, property or attribute of the host element eg @HostBinding(‘class.active’)
+
+@HostListener
+- bind to any element event all call the specified function eg @HostListener('mouseover') onHover() { window.alert("hover"); }
+
+@ContentChild
+- single form of ContentChildren used to get anything passed using content projection
+- uses either a hash reference or type to return a child reference.
+- in the params object set static to false and use the object in the ngAfterContentInit lifecycle hook
+- returns a typed component/directive or ElementRef
+
+@ContentChildren
+- plural for of ContentChild
+- as above but returns QueryList (which includes an observable to listen for changes)
+- no option to set as static
+
+@ViewChild
+- same as @ContentChild but for all items in the template
+
+@ViewChildren
+- same as @ContentChildren for for all items in the template

@@ -1,0 +1,26 @@
+ng-container is an html grouping element which you can use under the hood in Angular without ever seeing it in your final html output.
+
+Hence if I add this to my template:
+
+<div>
+  <ng-container class="yada">
+    <ng-container class="yada">
+      <ng-container class="yada">
+      i am inside an container
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>
+
+When rendered it looks like this:
+<div _ngcontent-kgk-c1="">
+	<!---->
+	<!---->
+	<!---->
+	" i am inside an container "
+</div>
+
+This serves 2 main purposes:
+- First it avoids unnecessary divs. If you need an *ngIf you may not necessarily want another div with it.
+- Second, it allows us to workround the restriction that we cannot have 2 structural directives on the same element.
+	- In practical terms (for most people) this only ever comes down to having an *ngIf and an *ngFor on the same element

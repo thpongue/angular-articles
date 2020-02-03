@@ -54,6 +54,8 @@ class field decorators
 
 @ViewChild
 - same as @ContentChild but for all items in the template
+- use the ngAfterViewInit lifecycle hook
 
 @ViewChildren
 - same as @ContentChildren for for all items in the template
+- use the ngAfterViewInit lifecycle hook

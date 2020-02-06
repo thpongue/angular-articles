@@ -1,3 +1,0 @@
-This article is a good reference point:
-
-https://blog.angulartraining.com/tutorial-the-magic-of-template-reference-variables-3183f0a0d9d1

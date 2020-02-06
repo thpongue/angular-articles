@@ -1,0 +1,45 @@
+Template reference variables are the hash symbols you see scattered around angular templates. They have a number of handy practical uses:
+
+Example 1. they allow us to grab a child element reference using @ViewChild()
+
+For example, if we have a component with a this in it's template:
+<p #myTemplateReference>some text</p>
+
+Then we can put the following code into our component
+@ViewChild('myTemplateReference', {static: true}) myPTag: ElementRef;
+
+Then implement the AfterViewInit interface and include the following in our code:
+ngAfterViewInit(): void {
+	console.warn('this.myPTag = ', this.myPTag);
+}
+
+
+Example 2. they allow us to coordinate interactions between siblings without requiring a parent which knows about both
+
+In the example below I have create a component and a directive which both have a clicked() method.
+I listen to a click method on an element and call a method on a sibling element using the reference variable
+
+<div (click)="acc.clicked(); acd.clicked()">i am some text</div>
+<app-child-component #acc></app-child-component>
+<div appChildDirective #acd="appChildDirectiveExportCallThisAnythingYouWant"></div> 
+
+Note: 
+This doesn't work for directives without adding an exportAs in the directive decorator and setting the # value as equal to that exported name.
+ie above we assume that we've set exportAs: #"appChildDirectiveExportCallThisAnythingYouWant" in the directive.
+Then the following code in the template uses that exported value acd="appChildDirectiveExportCallThisAnythingYouWant"
+That the most likely place that you've seen the #myTemplateVar="myExportedDirective" is when the directive is added under the hood in forms.
+In this example you've probably seen #myTemplateVar="ngForm"
+
+
+Example 3. they allow us to create simple, uncomplicated forms
+
+So if you add something like this to your template:
+<input #myInput type="text">
+<button (click)="log(myInput.value)" type="submit">submit</button>
+
+And add the log method to your component:
+log(text: string) {
+	console.log('text = ', text);
+}
+
+Then you've found an easy way to grab the data from your input elements and get it over to your component

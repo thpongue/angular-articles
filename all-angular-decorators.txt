@@ -43,7 +43,7 @@ class field decorators
 
 @ContentChild
 - single form of ContentChildren used to get anything passed using content projection
-- uses either a hash reference or type to return a child reference.
+- uses either a hash reference, directive (including component) type  or directive (or component) selector to return a child reference.
 - in the params object set static to false and use the object in the ngAfterContentInit lifecycle hook
 - returns a typed component/directive or ElementRef
 

@@ -17,21 +17,21 @@ ngAfterViewInit(): void {
 Example 2. they allow us to coordinate interactions between siblings without requiring a parent which knows about both
 
 In the example below I have create a component and a directive which both have a clicked() method.
-I listen to a click method on an element and call a method on a sibling element using the reference variable
+I listen to a click method on an element and call a method on a sibling elements using their reference variables.
 
 <div (click)="acc.clicked(); acd.clicked()">i am some text</div>
 <app-child-component #acc></app-child-component>
 <div appChildDirective #acd="appChildDirectiveExportCallThisAnythingYouWant"></div> 
 
 Note: 
-This doesn't work for directives without adding an exportAs in the directive decorator and setting the # value as equal to that exported name.
-ie above we assume that we've set exportAs: #"appChildDirectiveExportCallThisAnythingYouWant" in the directive.
-Then the following code in the template uses that exported value acd="appChildDirectiveExportCallThisAnythingYouWant"
-That the most likely place that you've seen the #myTemplateVar="myExportedDirective" is when the directive is added under the hood in forms.
-In this example you've probably seen #myTemplateVar="ngForm"
+There is a difference in the way this is done in components and directives.
+Directives require an exportAs in the directive decorator and setting the # value as equal to that exported name. Components just allow the hash reference to go on the element.
+In the example above we assume that we've set exportAs: #"appChildDirectiveExportCallThisAnythingYouWant" in the directive.
+That the most likely place that you've seen the #myTemplateVar="myExportedDirective" is when the directive is added automatically under the hood in forms.
+In this example you've probably seen something like #myTemplateVar="ngForm"
 
 
-Example 3. they allow us to create simple, uncomplicated forms
+Example 3. they allow us to create simple, uncomplicated forms (without ngForm)
 
 So if you add something like this to your template:
 <input #myInput type="text">

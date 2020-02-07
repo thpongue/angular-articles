@@ -1,0 +1,13 @@
+Schematics are a template-based system for modifying your CLI project. Usually a set of related schematics will be bundled up into an npm package. This is known as a collection.
+
+For example, the cypress schematic has functionality for removing the default e2e tool, protractor, as well as more standardised methods for running the cypress tests.
+
+The great thing about this is that everyone doesn't have to roll their own solutions. If I've used Cypress for 1 Angular project then the tooling should be the same for the next.
+
+There are 3 types of schematic:
+1. add eg ng add @angular/pwa - turns your app into a PWA by adding things like a service worker, manifest etc
+2. generate ng generate @angular/material:table - adds a material table to your project
+3. update - this adds a little more functionality to an npm install, as it also has the ability to update your project as well as its package dependencies
+
+All of the existing code generation tooling in the CLI uses schematics under the hood.
+For example, ng generate component uses this: https://github.com/angular/angular-cli/blob/master/packages/schematics/angular/component/index.ts

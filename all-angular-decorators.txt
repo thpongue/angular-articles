@@ -36,7 +36,8 @@ class field decorators
 - note that the convention is to use an EventEmitter for this
 
 @HostBinding
-- bind to any class, property or attribute of the host element eg @HostBinding(‘class.active’)
+- one-way bind to any class, property or attribute of the host element eg @HostBinding(‘class.active’)... , @HostBinding('attr.myAttribute')...
+- note - to get the value of an attribute (rather than setting it) use the @Attribute constructor binding
 
 @HostListener
 - bind to any element event all call the specified function eg @HostListener('mouseover') onHover() { window.alert("hover"); }
@@ -59,3 +60,26 @@ class field decorators
 @ViewChildren
 - same as @ContentChildren for for all items in the template
 - use the ngAfterViewInit lifecycle hook
+
+
+constructor parameters
+-------------------------------------------------------
+
+@Attribute
+- a parameter decorator for directives which tell the constructor the value of an attribute of the element
+- You can treat these as the getter of an existing attribute, as opposed to using @HostBinding('attr.myAttribute') which works as a setter
+
+@Self
+- a parameter decorator to tell the hierarchical DI to only look in the providers for this object
+
+@SkipSelf
+- a parameter decorator to tell the hierarchical DI to look in the host (parent) providers and above for the dependency
+
+@Host
+- a parameter decorator to tell the hierarchical DI to look in its own providers otherwise check in its host (parent) providers (but not above its direct host) for the dependency
+
+@Optional
+- tells the DI not to error out if no dependency is found
+
+@Inject
+- a way to manually specify an injector token. Rarely used

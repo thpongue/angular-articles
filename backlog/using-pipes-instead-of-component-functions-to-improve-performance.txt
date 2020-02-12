@@ -1,0 +1,9 @@
+todo
+
+use the example of making changes to the page - it re-calls these component function each time
+
+pipes take into account that the input hasn't changed - hence are much more efficient
+
+also mention the @memo decorator that can cache the inputs into a pure function to reduce the processing needed (good if not a lot of inputs, lots of duplication)
+
+

@@ -1,0 +1,2 @@
+https://github.com/scullyio
+https://www.netlify.com/blog/2019/12/17/building-an-angular-jamstack-app-with-scully/

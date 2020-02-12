@@ -1,0 +1,5 @@
+todo
+
+especially: 
+- change detection strategy
+- view encapsulation

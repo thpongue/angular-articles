@@ -1,0 +1,53 @@
+DOM
+--------------------------------------
+
+- DOM stands for Document Object Model.
+- It is an object-based representation of an html page with additional properties and methods which can be used to manipulate it.
+- If you go into the developer tools for your browser and type document into the console this is the top level DOM object.
+- If you type document.body then this is the DOM body element
+- Below this level the content is dynamic - ie you don't know what will follow
+- Each DOM object has a childNodes property with an array of children
+- There are methods such as querySelector for traversing the tree to find children which match the query eg document.body.querySelector("div")
+- Just to be clear - your HTML is not your DOM. It is the markup language which your browser parses in order to create the DOM.
+
+
+Shadow DOM
+--------------------------------------
+
+- The best way to describe this is by using chrome dev tools:
+	- under settings turn on "Show user agent shadow DOM"
+	- go to google
+	- right click the Google Search button and select inspect
+	- Under the <input...> tag you'll see:
+		- #shadow-root (user agent)
+				"Google Search"
+- This is a very simple example of a shadow DOM (sliders contain div's for example) but they illustrate what is going on
+- This element encapsulates it's own (very small) shadow DOM tree which is not accessible using normal DOM selectors
+- By default Angular components don't use the Shadow Dom, but you can choose to use it
+	- In the @Component decorator use encapsulation: ViewEncapsulation.ShadowDom
+	- Putting nothing here defaults to encapsulation: ViewEncapsulation.Emulated
+- The Angular emulated shadow DOM comprises:
+	- _nghost-<randomised string> on the root element
+	- _ngcontent-<same randomised string> on all child elements
+	- [_ngcontent-<same randomised string>] appended to your css in order to scope it to your encapsulated component
+		- eg .test[_ngcontent-cmy-1] {
+						padding: 10px;
+					}
+
+
+Virtual DOM
+--------------------------------------
+
+- Used in pre-Ivy versions of Angular
+- This originated with React. It is a technique used to avoid rewriting the entire DOM whenever a part of it changes.
+- Whenever a change happens in a component the virtual DOM is compared to the a representation of the real DOM and only the new bits are changed
+
+
+Incremental DOM
+--------------------------------------
+
+- Used in Ivy
+- Also known as the IDOM
+- Similar to the Virtual DOM
+- Doesn't hold a representation of the DOM in memory - just does a diff against the real DOM
+- IDOM just provides an API for bulding DOM elements

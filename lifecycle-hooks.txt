@@ -1,3 +1,21 @@
-Every Angular component or directive has access to a number of lifecycle hooks.
+Every Angular component or directive has access to a number of lifecycle hooks. Each has its own interface which should also be implemented.
 
+I'll list the ones I've found useful below (missing off ngAfterContentChecked and ngAfterViewChecked which I haven't had a use for):
 
+ngOnChanges()
+When Angular sets or resets its @Input() properties. Its easy to be caught out by this being called before ngOnInit().
+
+ngOnInit()
+The most used hook and only called once. This initializes the directive/component after the input properties have been set (see ngOnChanges).
+
+ngDoCheck()
+Called during every change detection run, immediately after ngOnChanges() and ngOnInit().
+
+ngAfterContentInit()
+RCalled once after the first ngDoCheck(). This is what you listen to when using content projection (ng-content) as it is called immediately after this has been done. Commonly used when using @ContentChild().
+
+ngAfterViewInit()
+Called once after the first ngAfterContentChecked(). Called after Angular initializes the component's views, children and parents. Commonly used when using @ViewChild().
+
+ngOnDestroy()
+Cleanup just before Angular destroys the directive/component. Unsubscribe Observables and detach event handlers to avoid memory leaks.

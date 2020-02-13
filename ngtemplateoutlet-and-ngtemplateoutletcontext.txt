@@ -1,0 +1,24 @@
+- ngTemplateOutlet allows us to create an html template, grab a reference to it using a hash reference, then use it elsewhere.
+- In addition we can "hydrate" the object. This means to take an object from memory without domain data and to add that data into it dynamically.
+- Within our ng-template we can use the context to pass through an the object which hydrates our template.
+	- If we use the $implicit property then our ng-template let- syntax doesn't have to be set to a value.
+	- Alternatively we can use let-theKeyUsedInTheNgTemplate="theKeyUsedInTheContextObject".
+	eg in the example below we use let-value2=val - value2 is available in the template and val is the property of the context object.
+- In the example below we see 4 variations of the syntax.
+	- 2 using attribute template syntax with a seperate ngTemplateOutletContext attribute directive.
+	- 2 using structural directive syntax with a colon seperated context object.
+- With each we show how we can choose to use inline objects or component properties.
+
+Template:
+<ng-template #outlet let-value1 let-value2="val">
+  <p>passed value1 {{ value1 }}</p>
+  <p>passed value2 {{ value2 }}</p>
+</ng-template>
+
+<div [ngTemplateOutlet]="outlet" [ngTemplateOutletContext]="{ $implicit: 'i am the passed implicit value', val: 'i am value2'}"></div>
+<div [ngTemplateOutlet]="outlet" [ngTemplateOutletContext]="componentProp"></div>
+<div *ngTemplateOutlet="outlet; context: { $implicit: 'i am the passed implicit value using structural directive syntax', val: 'i am value2'}"></div>
+<div *ngTemplateOutlet="outlet; context: componentProp"></div>
+
+In the component we have:
+componentProp: any = { $implicit: 'i am the passed implicit value', val: 'i am value2'};

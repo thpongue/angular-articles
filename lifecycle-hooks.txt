@@ -1,1 +1,3 @@
-TODO
+Every Angular component or directive has access to a number of lifecycle hooks.
+
+

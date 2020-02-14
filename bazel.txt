@@ -1,0 +1,14 @@
+- Many of us have heard of Bazel through it's use with Angular, but it actually supports a number of Languages
+- It's been used internally at Google for a long time - so it's very well tested
+- It is intelligent enough to only recompile the files that have been changed
+- Likewise with tests
+- It is particularly useful on large codebases
+- It can be integrated easily with Docker where necessary
+- It has an IntelliJ plugin
+- The first build with Bazel is extra slow - for example, if you test in chrome it will download a particular chrome version to ensure all tests are the same across devices
+- There are CLI schematics to make this all easier
+- Install as follows (note: add schematic, global install, new schematic):
+	- ng add @angular/bazel
+	- npm install -g @angular/bazel
+- When i tried it on my Mac it failed - probably something to do with xcode that I'm not interested in debugging or getting to the bottom of
+	- just be aware that installation may not be as simple as above

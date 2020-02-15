@@ -1,0 +1,76 @@
+Intro
+---------------------------------
+
+ng-content is used to mark an area to project content into
+Since it only moves elements it is resolved at compile time.
+
+It is used as follows:
+
+Add the content in between the tags of the element we're projecting into:
+<my-component>
+	<p>something to project into the component</p>
+</my-component>
+
+In the template for my-component our p tag gets output anywhere that we add:
+<ng-content>/<ng-content>
+
+
+Multiple uses
+---------------------------------
+
+If we update our template as follows:
+
+<div class="parent 1">
+  <ng-content></ng-content>
+</div>
+<div class="parent 2">
+  <ng-content></ng-content>
+</div>
+
+It only outputs once in the second container (parent 2). This is an intentional design decision explained in depth by Misko Hevery here: https://github.com/angular/angular/issues/9173#issuecomment-225732419
+
+Here's a snippet from his excellent description:
+
+""
+Imagine that you have:
+
+<third-party-component>
+  <my-component></my-component>
+</third-party-component>
+
+Here a third-party-component is a component which the developer has not written and hence dose not know how it works internally.
+Additionally for all we know the third-party-component is a web-component and is not even part of angular.
+
+Question: How many times should my-component be instantiated?
+Answer: Exactly once! Because, any other number would be a surprise to the author of the template.
+
+A component such as third-party-component should not have the ability to influence the instantiation of my-component.
+""
+
+
+ngTemplateOutlet
+---------------------------------
+
+If we need to "hydrate" a template with data we need to use ngTemplateOutlet. This is resolved at at runtime. This is a whole different technique used for more complex examples.
+
+
+select
+---------------------------------
+
+When rendering content we can use the select attribute to distinguish between different elements.
+
+If we update our example code so that the content we're projecting uses a standard role attribute:
+<app-content-projection>
+  <p role="header1">i am content 1</p>
+  <p role="header2">i am content 2</p>
+</app-content-projection>
+
+In the template for my-component we can use the select attribute to be more specific about which content gets projected where:
+
+<div class="parent 1">
+  <ng-content select="p[role=header1]"></ng-content>
+</div>
+<div class="parent 2">
+  <ng-content select="p[role=header2]"></ng-content>
+</div>
+
